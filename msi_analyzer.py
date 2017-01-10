@@ -1,32 +1,11 @@
-from subprocess import run, PIPE
+from msi_analyzer_class import MSI_File
 
-class MSI_File(object):
+msi_files = []
 
-    def __init__(self, name):
+def get_lines(input_file):
+    with open(input_file,'r') as f:
+        for line in f:
+            yield line
 
-        self.name = name
-
-
-    def get_table_data(self, table):
-
-        """
-        Returns a set of files in a form of dictionary for msi file.
-        """
-
-        output = run(['msiinfo export {0} {1}'.format(self.name, table)], shell=True, stdout=PIPE).stdout.decode('utf-8',errors='backslashreplace').split("\r\n")
-        files = [line.split('\t') for line in output]
-        res = [dict(zip(files[0], file)) for file in files[1:]]
-
-        return res
-
-    def get_tables(self):
-        output = run(['msiinfo tables {0}'.format(self.name)], shell=True, stdout=PIPE).stdout.decode('utf-8',
-                                                                                                                 errors='backslashreplace').split("\n")
-        output = [line for line in output if line]
-        return output
-
-a = MSI_File('XSLfast.msi')
-print(a.get_table_data('Registry'))
-
-
+msi_files = [MSI_File(line) for line in get_lines('filtered.txt') if line != '\n']
 
