@@ -3,6 +3,14 @@
 
 import os
 
+
+# This tiny thing gets 'files.txt' in the working dir as input
+# and filters them according to this rule: 
+# if any element in full path of file contains word from 'words' array - file is excluded
+
+# Exports result to 'filtered.txt'
+
+
 words = ['#sources','#source','#Sources','#Source','Source','Sources','source','sources']
 
 with open('files.txt','r') as files:
