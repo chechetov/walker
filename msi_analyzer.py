@@ -124,14 +124,19 @@ def create_html_report(input_data):
      with open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'report.html'), 'w') as output_file:
          output_file.write(str(rendered))
 
+
+def create_output_file(input_data):
+    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'output.txt'),'a') as output_file:
+        output_file.write(str(input_data))
      
 
 if __name__ == '__main__':
+
     final_result = {}
 
 
     msi_files = create_files_from_cfg()
-    how_many = 10
+    how_many = 'ALL'
 
     uniq_files = get_uniq_files(msi_files, how_much=how_many)
     uniq_paths = get_uniq_paths(msi_files, how_much=how_many)
@@ -154,6 +159,6 @@ stats = (_msi_counter,_reg_counter,_file_counter)
 
 
 create_html_report((final_result, stats))
-
+create_output_file(final_result)
 
 
