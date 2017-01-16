@@ -1,0 +1,58 @@
+<html>
+<head>
+<title> Report </title> 
+</head>
+
+<body>
+
+Stats<br>
+MSI files processed: {{stats[0]}} <br>
+Registry keys processed: {{stats[1]}} <br>
+Files processed: {{stats[2]}} <br>
+Uniq packages: {{data|count}}
+
+
+{%for package in data%}
+
+<table border='1' width='100%'>
+<caption>ProductName-Manufacturer: {{package}}</caption>
+<col width="33%">
+<col width="33%">
+<col width="33%"> 
+
+
+<thead>
+<tr>
+<td><b>Path, Version ( {{ data[package]['Paths']|count}} total )</b></td>
+<td><b>Registry Keys (Name,Key,Value,Root) ( {{ data[package]['Registry']|count}} total )</b></td>
+<td><b>Files ( {{ data[package]['Files']|count}} total )</b></td>
+</tr>
+</thead>
+
+<tbody>
+<tr> 
+
+    <td valign="top" align="left">
+    {%for path in data[package]['Paths']%}
+        {{path[0],path[1]}}<br>
+    {%endfor%}
+    </td>
+
+    <td valign="top" align="left">
+    {%for registry_key in data[package]['Registry']%}
+        {{registry_key}}<br>
+    {%endfor%}
+    </td>
+    
+    <td valign="top" align="left">
+    {%for filename in data[package]['Files']%}
+        {{filename}}<br>
+    {%endfor%}
+    </td>
+</tr>
+{%endfor%}
+</tbody>
+</table>
+</body>
+
+</html>
