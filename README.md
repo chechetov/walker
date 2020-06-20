@@ -1,3 +1,3 @@
 # Walker
 
-This guy walks over MSI packages and shows info about it
+This guy walks over MSI packages, gets their info and creates database from it.
